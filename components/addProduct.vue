@@ -4,7 +4,8 @@
             <div class="form">
                 <div class="form-element">
                     <div class="headline ">Наименование товара<div class="required" ></div></div>
-                    <input type="text" class="entryField" id="name" placeholder="Введите наименование товара" >
+                    <input type="text" class="entryField" id="name" v-model="name" name="name" placeholder="Введите наименование товара" >
+                    <p v-if="!name">Это поле обязательно</p>
                 </div>
                 <div class="form-element">
                     <div class="headline ">Описание товара</div>
@@ -12,13 +13,15 @@
                 </div>
                 <div class="form-element"> 
                     <div class="headline ">Ссылка на изображение товара<div class="required"></div></div>
-                    <input type="text"  class="entryField" id="img" placeholder="Введите ссылку">
+                    <input type="text"  class="entryField" id="img" v-model="img" name="img" placeholder="Введите ссылку">
+                    <p v-if="!img">Это поле обязательно</p>
                 </div>
                 <div class="form-element">
                     <div class="headline">Цена товара<div class="required"></div></div>
-                    <input type="text"  class="entryField" id="price" placeholder="Введите цену">
+                    <input type="text"  class="entryField" id="price" v-model="price" name="price" placeholder="Введите цену">
+                    <p v-if="!price">Это поле обязательно</p>
                 </div>
-                <button class="btn">Добавить товар</button>
+                <button @click='addProduct' :class="['btn', {'active': submitBtnState}]" :disabled="!submitBtnState" type="submit" id="btn" >Добавить товар</button>
             </div>
             
         </div>
@@ -26,8 +29,28 @@
 
 <script>
 export default {
-   
+    data() {
+        return{
+            name: null ,
+            img: null,
+            price: null
+        }
+        
+    },
+    computed: {
+        submitBtnState() {
+            return (this.price && this.img && this.name);
+        }
+    },
+    methods: {
+        
+        addProduct(){
+            
+        }
+
+    }
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -49,13 +72,20 @@ export default {
         border-radius: 4px;
         padding: 24px;
         width: 332px;
-        height: 440px;
+        min-height: 440px;
 
         &-element{
 
             margin-bottom: 16px;
             position: relative;
 
+            p{
+                font-weight: 400;
+                font-size: 8px;
+                line-height: 10px;
+                letter-spacing: -0.02em;
+                color: #FF8484;
+            }
             .required{
                 content:"";
                 width: 4px;
@@ -103,18 +133,20 @@ export default {
             margin: 8px 0;
             width: 284px;
             height: 36px;
-            background-color: #EEEEEE;
             border-radius: 10px;
             border: none;
             color: #B4B4B4;
             font-size: 12px;
             font-weight: 600px;
             font-family: 'Inter';
+            background-color: #EEEEEE;
 
-            &:active{
-                background-color: #7BAE73;
-            }
+            
         }
+
+        .active{
+                background-color: #7BAE73;
+         }
     }
 
 }
