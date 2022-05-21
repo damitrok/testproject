@@ -1,7 +1,7 @@
 <template>
   <div class="conteiner">
     <AddProduct/>
-    <ProductList/>
+    <ProductList :products="list"/>
   </div>
   
 </template>
@@ -9,6 +9,7 @@
 <script>
 import AddProduct from "../components/addProduct.vue";
 import ProductList from '../components/productList.vue';
+import list from './static/list.json';
 
 export default {
   

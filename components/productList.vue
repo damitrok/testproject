@@ -8,7 +8,7 @@
         </select>
         <div class="productList">
             <div v-for="product in products" :key="product.name" class="productList-element">
-                <img v-bind:src="product.img" alt="" class="img">
+                <img :src="imgPath(product.img)" alt="" class="img">
                 <div class="name">{{product.name}}</div>
                 <div class="description">{{product.description}}</div>
                 <div class="price">{{product.price}} руб.</div>
@@ -21,40 +21,21 @@
 export default {
     name: 'productList',
 
+    props: {
+        products:{
+            type:Array,
+            require:true
+        }
+    },
+    methods:{
+        imgPath(p){
+            return require(p);
+        }
+    },
     data(){
         return{
-            products: [
-                {
-                    name: 'Наименование товара',
-                    description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-                    img:  './static/Rectangle 31.jpg',
-                    price: '10000'
-                },
-                {
-                    name: 'Наименование товара',
-                    description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-                    img: './static/Rectangle 31.png',
-                    price: '12000'
-                },
-                {
-                    name: 'Наименование товара',
-                    description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-                    img: './static/Rectangle 31.png',
-                    price: '13000'
-                },
-                {
-                    name: 'Наименование товара',
-                    description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-                    img: './static/Rectangle 31.png',
-                    price: '10000'
-                },
-                {
-                    name: 'Наименование товара',
-                    description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-                    img: './static/Rectangle 31.png',
-                    price: '10000'
-                }
-            ]
+            products: []
+                
         }
     }
 }
@@ -98,8 +79,9 @@ div{
 
 
             .img{
-                width: 332px;
-                height: 200px;
+                display: block;
+                width: 100%;
+                height: auto;
             }
             .name{
                 margin: 16px;
