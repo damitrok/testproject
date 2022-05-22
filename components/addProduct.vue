@@ -9,7 +9,7 @@
                 </div>
                 <div class="form-element">
                     <div class="headline ">Описание товара</div>
-                    <textarea name="" id="description" cols="30" rows="10" class="entryField -big" placeholder="Введите описание товара"></textarea>
+                    <textarea name="" id="description" cols="30" rows="10" class="entryField -big" v-model="description" placeholder="Введите описание товара"></textarea>
                 </div>
                 <div class="form-element"> 
                     <div class="headline ">Ссылка на изображение товара<div class="required"></div></div>
@@ -32,6 +32,7 @@ export default {
     data() {
         return{
             name: null ,
+            description: null,
             img: null,
             price: null
         }
@@ -45,6 +46,13 @@ export default {
     methods: {
         
         addProduct(){
+            this.$emit('submitForm', {
+                name: this.name,
+                description: this.description,
+                img: this.img,
+                price: this.price
+            })
+
             
         }
 
@@ -146,6 +154,8 @@ export default {
 
         .active{
                 background-color: #7BAE73;
+                color: #FFFFFF;
+                cursor: pointer;
          }
     }
 

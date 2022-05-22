@@ -7,8 +7,14 @@
             <option value="">По названию</option>
         </select>
         <div class="productList">
-            <div v-for="product in products" :key="product.name" class="productList-element">
-                <img :src="imgPath(product.img)" alt="" class="img">
+            
+            <div v-for="(product, index) in products" :key="product.name"   class="productList-element">
+                <div class="delete" @click='deleteProduct(index)'>
+                    <img class="cart" src="~/static/delete.svg" alt="">
+                </div>
+                <div class="img-overlay">
+                    <img :src="product.img" key="" alt="" class="img">
+                </div>
                 <div class="name">{{product.name}}</div>
                 <div class="description">{{product.description}}</div>
                 <div class="price">{{product.price}} руб.</div>
@@ -28,15 +34,14 @@ export default {
         }
     },
     methods:{
-        imgPath(p){
-            return require(p);
+
+        deleteProduct(id){
+            
+            this.products.splice(id, 1);
+            
+
         }
-    },
-    data(){
-        return{
-            products: []
-                
-        }
+
     }
 }
 </script>
@@ -77,11 +82,44 @@ div{
             margin: 6px;
             position: relative;
 
+            &:hover{
+                cursor: pointer;
+                .delete{
+                    position: absolute;
+                    width: 32px;
+                    height: 32px;
+                    right: -10px;
+                    top: -10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: #FF8484;
+                    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+                    border-radius: 10px;
+                    
+                
+                    .cart{
+                        width: 12px;
+                        height: 16px;
+                    }
+                }
+            }
 
-            .img{
-                display: block;
-                width: 100%;
-                height: auto;
+            .delete{
+                display: none;
+            }
+            
+            .img-overlay {
+                height: 200px;
+                width: 332px;
+                overflow: hidden;
+                .img{
+                    width: 100%;
+                    height: auto;
+                    object-fit: contain;
+                    left: 50%;
+                    top: 50%;
+                }
             }
             .name{
                 margin: 16px;

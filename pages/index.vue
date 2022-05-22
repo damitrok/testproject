@@ -1,6 +1,6 @@
 <template>
   <div class="conteiner">
-    <AddProduct/>
+    <AddProduct @submitForm="addProduct" />
     <ProductList :products="list"/>
   </div>
   
@@ -9,11 +9,21 @@
 <script>
 import AddProduct from "../components/addProduct.vue";
 import ProductList from '../components/productList.vue';
-import list from './static/list.json';
+import list from '../static/list.json';
 
 export default {
   
    name: 'addProduct',
+   data() {
+     return {
+       list
+     }
+   },
+   methods: {
+     addProduct(prod) {
+       this.list.push(prod);
+     }
+   },
     components: {
         AddProduct,
         ProductList
@@ -21,7 +31,8 @@ export default {
 }
 </script>
 
-<style>
+<style  lang="scss" scoped>
+
 html{
     font-size: 16px;
 }
@@ -29,7 +40,7 @@ body{
     margin: 0;
     font-family: 'Source Sans Pro', sans-serif;
     color: #3F3F3F;
-    background-color: #E5E5E5;
+    background-color: #e5e5e5;
 }
 
 h1,h2,h3,h4,h5,h6{
